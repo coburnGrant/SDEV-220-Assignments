@@ -1,3 +1,5 @@
+from typing import Optional
+
 class Student:
     """
     Basic class representing a student with a first name, last name, and GPA.
@@ -8,10 +10,12 @@ class Student:
         self.last_name = last_name
         self.gpa = gpa
     
-    def student_name(self):
+    @property
+    def student_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
     
-    def student_honors(self):
+    @property
+    def student_honors(self) -> Optional[str]:
         if self.gpa >= 3.5:
             return "Dean's List"
         elif self.gpa >= 3.25:
@@ -20,9 +24,9 @@ class Student:
             return None
 
     def evaluate_student(self):
-        honors = self.student_honors()
+        honors = self.student_honors
 
         if honors is None:
-            print(f"{self.student_name()} has made no honors")
+            print(f"{self.student_name} has made no honors")
         else:
-            print(f"{self.student_name()} has made the {honors}")
+            print(f"{self.student_name} has made the {honors}")
