@@ -22,4 +22,4 @@ class Automobile(Vehicle):
         self.roof = roof
 
     def __str__(self):
-        return f"Vehicle Type: {self.type}\nYear: {self.year}\nMake: {self.make}\nModel: {self.model}\nNumber of doors: {self.doors}\nType of roof: {self.roof}"
+        return f"Vehicle type: {self.type}\nYear: {self.year}\nMake: {self.make}\nModel: {self.model}\nNumber of doors: {self.doors}\nType of roof: {self.roof}"
