@@ -20,6 +20,11 @@ class Book(db.Model):
     def __repr__(self):
         return f'{self.book_name} - {self.author} - {self.publisher}'
     
+    def update(self, json):
+        self.book_name = json['book_name']
+        self.author = json['author']
+        self.publisher = json['publisher']
+    
     def to_dict(self):
         return {
             'id': self.id,
@@ -34,6 +39,7 @@ def index():
     <h1>Welcome to a Book API!</h1>
     <h3>To get all books, go to <a href="/books">/books</a></h3>
     <h3>To get a specific book, go to /books/<id></h3>
+    <h3>To update a book, PUT to /books/<id> and use JSON payload</h3>
     <h3>To add a book, POST to /books and use JSON payload</h3>
     <h3>To delete a book, DELETE to /books/<id></h3>
     '''
@@ -47,18 +53,30 @@ def get_books():
     
     return {"books": output}
 
-@app.route('/books/<id>')
-def get_book(id):
-    book = Book.query.get_or_404(id)
-    return book.to_dict()
-
 @app.route('/books', methods=['POST'])
 def add_book():
     book = Book(json=request.json)
 
     db.session.add(book)
     db.session.commit()
-    return {'id': book.id}
+    return { 'id': book.id }
+
+@app.route('/books/<id>', methods=['PUT'])
+def update_book(id):
+    book = Book.query.get_or_404(id)
+
+    if book is None:
+        return {'message': 'Book not found'}, 404
+    
+    book.update(request.json)
+    db.session.commit()
+
+    return { 'message': 'Book updated successfully' }
+
+@app.route('/books/<id>')
+def get_book(id):
+    book = Book.query.get_or_404(id)
+    return book.to_dict()
 
 @app.route('/books/<id>', methods=['DELETE'])
 def delete_book(id):
@@ -68,4 +86,4 @@ def delete_book(id):
     
     db.session.delete(book)
     db.session.commit()
-    return {'message': 'Book deleted'}
+    return { 'message': 'Book deleted successfully' }
