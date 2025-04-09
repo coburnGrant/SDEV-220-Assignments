@@ -30,7 +30,13 @@ class Book(db.Model):
 
 @app.route('/')
 def index():
-    return 'Welcome to the Book API!'
+    return '''
+    <h1>Welcome to a Book API!</h1>
+    <h3>To get all books, go to <a href="/books">/books</a></h3>
+    <h3>To get a specific book, go to /books/<id></h3>
+    <h3>To add a book, POST to /books and use JSON payload</h3>
+    <h3>To delete a book, DELETE to /books/<id></h3>
+    '''
 
 @app.route('/books')
 def get_books():

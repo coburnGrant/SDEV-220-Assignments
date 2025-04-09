@@ -26,6 +26,6 @@ export FLASK_ENV=development
 Run the application using `flask`
 
 ```bash
-flask  run
+flask run
 ```
 
