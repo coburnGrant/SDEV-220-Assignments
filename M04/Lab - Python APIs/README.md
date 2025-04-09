@@ -21,6 +21,11 @@ export FLASK_APP=app.py
 export FLASK_ENV=development
 ```
 
+Create books initial database
+```bash
+python init_db.py
+```
+
 ## Run
 
 Run the application using `flask`
